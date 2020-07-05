@@ -24,6 +24,7 @@ class Receita(models.Model):
         ('AR', 'A receber')
     )
     
+    id = models.AutoField(primary_key=True)
     classificacao = models.CharField(max_length=2, choices=CLASSIFICACAO_CHOICES, default='OU')
     data_expectativa = models.DateField(null=False)
     data_recebimento = models.DateField(null=True)
@@ -31,4 +32,17 @@ class Receita(models.Model):
     formaRecebimento = models.CharField(max_length=1, choices=FORMA_RECEBIMENTO_CHOICES, default='O')
     situacao = models.CharField(max_length=2, choices=SITUACAO_CHOICES, default='AR')
     valor = models.DecimalField(null=False, max_digits=8, decimal_places=2)
+
+
+    def as_json(self):
+        return dict(
+            id = self.id
+            , classificacao = self.classificacao
+            , data_expectativa = self.data_expectativa
+            , data_recebimento = self.data_recebimento
+            , descricao = self.descricao
+            , formaRecebimento = self.formaRecebimento
+            , situacao = self.situacao
+            , valor = self.valor
+        )
     
