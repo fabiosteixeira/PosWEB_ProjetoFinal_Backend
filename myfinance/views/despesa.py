@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 from datetime import date
 from django.views.decorators.csrf import csrf_exempt
@@ -49,7 +48,6 @@ def despesaOp(request, id_despesa):
         if(despesa):
             despesa.delete()
             jsonReturn = RetornoRequest(False, "Objeto excluído com sucesso.").as_json()
-        
         return JsonResponse(jsonReturn)
 
 # atualiza as informações de uma despesa existente
@@ -72,5 +70,4 @@ def atualizaDespesa(request, id_despesa):
     if (id_despesa > 0):
         despesa.id = id_despesa
 
-    print("Atualizando despesa de id: " + str(id_despesa))
     despesa.save()
