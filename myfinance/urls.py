@@ -1,9 +1,11 @@
 from django.urls import path
 
-from .views import index as iv
-from .views import despesa as dv
-from .views import receita as rv
-from .views import relatorio as relv
+from .views import indexView as iv
+from .views import despesaView as dv
+from .views import receitaView as rv
+from .views import relatorioView as relv
+from .views import loginView as lg
+from .views import userView as us
 
 urlpatterns = [
     path('', iv.index, name="index"),
@@ -17,5 +19,11 @@ urlpatterns = [
     path('relatorio/despesas', relv.despesas, name="relatorio_despesas"),
     path('relatorio/despesas/filtro', relv.despesasFiltro, name="relatorio_despesas_filtro"),
     path('relatorio/receitas', relv.receitas, name="relatorio_receitas"),
-    path('relatorio/receitas/filtro', relv.receitasFiltro, name="relatorio_receitas_filtro")
+    path('relatorio/receitas/filtro', relv.receitasFiltro, name="relatorio_receitas_filtro"),
+
+    path('login/', lg.login, name="login"),
+
+    path('user/', us.user, name="user"),
+    path('user/<int:id_user>/', us.userOp, name="userOp"),
+
 ]
