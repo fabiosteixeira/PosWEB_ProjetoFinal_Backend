@@ -17,7 +17,7 @@ def login(request):
         user = User.objects.get(email=body['email'])
         user.match_password(body['password'])
     except (User.DoesNotExist, User.PasswordDoesNotMatch):
-        return JsonResponse(RetornoRequest(True, "Credenciais inválidas.").as_json(), status=400)
+        return JsonResponse(RetornoRequest(True, "Credenciais inválidas.").as_json())
 
     payload = {
         'user_id': user.id,
@@ -25,4 +25,5 @@ def login(request):
     }    
     jwt_token = jwt.encode(payload, JWT_SECRET, JWT_ALGORITHM)
 
-    return JsonResponse({'token': jwt_token.decode('utf-8')})
+    return JsonResponse({'eherro': False, 
+                          'token': jwt_token.decode('utf-8')})

@@ -13,18 +13,17 @@ class AuthMiddleware:
 
         if not request.path.startswith('/login/'):
             request.user = None
+            print('Entrou aqui!!')
             jwt_token = request.headers.get('authorization', None)
             if jwt_token:
                 try:
                     payload = jwt.decode(jwt_token, JWT_SECRET,
                                         algorithms=[JWT_ALGORITHM])
                 except (jwt.DecodeError, jwt.ExpiredSignatureError):
-                    return JsonResponse({'message': 'Token inválido'},
-                                        status=400)
+                    return JsonResponse(RetornoRequest(True, "Token inválido.").as_json())
                 request.user = User.objects.get(id=payload['user_id'])
             else:
-                return JsonResponse({'message': 'Autenticação requerida'},
-                                            status=401) 
+                return JsonResponse(RetornoRequest(True, "Autenticação requerida.").as_json())
 
         response = self.get_response(request)
         return response
