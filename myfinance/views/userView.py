@@ -45,7 +45,6 @@ def userOp(request, id_user):
             jsonReturn = RetornoRequest(False, "Objeto excluído com sucesso.").as_json()
         return JsonResponse(jsonReturn)
 
-# atualiza as informações de uma despesa existente
 def atualizaUser(request, id_user):
     body = json.loads(request.body.decode('utf-8'))
 
@@ -58,3 +57,17 @@ def atualizaUser(request, id_user):
         user.id = id_user
 
     user.save()
+    return user
+
+@require_http_methods(["POST"])   
+@csrf_exempt
+def userCreateExterno(request):
+    try:
+        user = atualizaUser(request, 0)
+    except (User.DoesNotExist, User.PasswordDoesNotMatch):
+        return JsonResponse(RetornoRequest(True, "Não foi possível cadastrar o novo usuário.").as_json())
+    
+    return JsonResponse({'eherro': False, 
+                         'id': user.id,
+                         'username': user.email,
+                         'name': user.nome})

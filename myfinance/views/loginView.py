@@ -14,7 +14,7 @@ def login(request):
     body = json.loads(request.body.decode('utf-8'))
 
     try:
-        user = User.objects.get(email=body['email'])
+        user = User.objects.filter(email=body['email']).first()
         user.match_password(body['password'])
     except (User.DoesNotExist, User.PasswordDoesNotMatch):
         return JsonResponse(RetornoRequest(True, "Credenciais inválidas.").as_json())

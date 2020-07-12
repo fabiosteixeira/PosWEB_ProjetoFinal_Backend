@@ -11,7 +11,7 @@ class AuthMiddleware:
 
     def __call__(self, request):
 
-        if not request.path.startswith('/login/'):
+        if not request.path.startswith('/login/') and not request.path.startswith('/user/create/'):
             request.user = None
             jwt_token = request.headers.get('authorization', None)
             if jwt_token:

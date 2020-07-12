@@ -24,6 +24,7 @@ urlpatterns = [
     path('login/', lg.login, name="login"),
 
     path('user/', us.user, name="user"),
+    path('user/create/', us.userCreateExterno, name="userCreateExterno"),
     path('user/<int:id_user>/', us.userOp, name="userOp"),
 
 ]

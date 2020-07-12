@@ -10,6 +10,7 @@ class User(models.Model):
         return dict(
             id = self.id
             , nome = self.nome
+            , email = self.email
         )
 
     def match_password(self, password):
