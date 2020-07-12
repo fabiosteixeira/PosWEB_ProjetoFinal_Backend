@@ -13,7 +13,6 @@ class AuthMiddleware:
 
         if not request.path.startswith('/login/'):
             request.user = None
-            print('Entrou aqui!!')
             jwt_token = request.headers.get('authorization', None)
             if jwt_token:
                 try:
