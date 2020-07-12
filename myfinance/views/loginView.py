@@ -26,4 +26,7 @@ def login(request):
     jwt_token = jwt.encode(payload, JWT_SECRET, JWT_ALGORITHM)
 
     return JsonResponse({'eherro': False, 
-                          'token': jwt_token.decode('utf-8')})
+                         'id': user.id,
+                         'username': user.email,
+                         'name': user.nome,
+                         'token': jwt_token.decode('utf-8')})
