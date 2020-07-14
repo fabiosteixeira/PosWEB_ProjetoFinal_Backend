@@ -25,7 +25,10 @@ SECRET_KEY = '(1duhttuh4ntm9^i(rsmvxebhf%-cb&k=2#-20d(^y2zdi5d2m'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['trab-final-pos-backend.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['trab-final-pos-backend.herokuapp.com', 
+                'trab-final-pos-frontend.herokuapp.com', 
+                'localhost', 
+                '127.0.0.1']
 
 
 # Application definition
