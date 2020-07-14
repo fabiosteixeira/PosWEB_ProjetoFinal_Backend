@@ -15,7 +15,7 @@ from ..utils import Utils
 def receita(request):
     if(request.method=="GET"):
         receitas = [ob.as_json() for ob in Receita.objects.all()]
-        return HttpResponse(json.dumps(receitas, default=Utils.converter), content_type="application/json")
+        return HttpResponse(json.dumps(receitas, default=Utils.converterParaListagem), content_type="application/json")
     elif(request.method=="POST"):
         atualizaReceita(request, 0)
         return JsonResponse(RetornoRequest(False, "Objeto criado com sucesso.").as_json())        
@@ -54,7 +54,7 @@ def atualizaReceita(request, id_receita):
     body = json.loads(request.body.decode('utf-8'))
     dataRecebimento = body['data_recebimento']
 
-    if(dataRecebimento == ""):
+    if(dataRecebimento == "" or dataRecebimento == []):
         dataRecebimento = None
 
     receita = Receita(classificacao=body['classificacao'],

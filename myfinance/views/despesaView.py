@@ -15,8 +15,7 @@ from ..utils import Utils
 def despesa(request):
     if(request.method=="GET"):
         despesas = [ob.as_json() for ob in Despesa.objects.all()]
-        print(despesas)
-        return HttpResponse(json.dumps(despesas, default=Utils.converter), content_type="application/json")
+        return HttpResponse(json.dumps(despesas, default=Utils.converterParaListagem), content_type="application/json")
     elif(request.method=="POST"):
         atualizaDespesa(request, 0)
         return JsonResponse(RetornoRequest(False, "Objeto criado com sucesso.").as_json())
@@ -56,7 +55,7 @@ def atualizaDespesa(request, id_despesa):
     body = json.loads(request.body.decode('utf-8'))
     dataPagamento = body['data_pagamento']
 
-    if(dataPagamento == ""):
+    if(dataPagamento == "" or dataPagamento == []):
         dataPagamento = None
 
     despesa = Despesa(classificacao=body['classificacao'],
