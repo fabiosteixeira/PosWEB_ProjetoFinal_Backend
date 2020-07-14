@@ -13,8 +13,11 @@ from ..utils.utils import JWT_ALGORITHM, JWT_EXP_DELTA_SECONDS, JWT_SECRET
 def login(request):
     body = json.loads(request.body.decode('utf-8'))
 
+    user = User.objects.filter(email=body['email']).first()
+    if user == None:
+        return JsonResponse(RetornoRequest(True, "Usuário não localizado.").as_json())
+
     try:
-        user = User.objects.filter(email=body['email']).first()
         user.match_password(body['password'])
     except (User.DoesNotExist, User.PasswordDoesNotMatch):
         return JsonResponse(RetornoRequest(True, "Credenciais inválidas.").as_json())

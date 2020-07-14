@@ -15,6 +15,7 @@ from ..utils import Utils
 def despesa(request):
     if(request.method=="GET"):
         despesas = [ob.as_json() for ob in Despesa.objects.all()]
+        print(despesas)
         return HttpResponse(json.dumps(despesas, default=Utils.converter), content_type="application/json")
     elif(request.method=="POST"):
         atualizaDespesa(request, 0)

@@ -44,6 +44,6 @@ class Despesa(models.Model):
             , descricao = self.descricao
             , formaPagamento = self.formaPagamento
             , situacao = self.situacao
-            , valor = self.valor
+            , valor = self.valor.__str__()
         )
     
